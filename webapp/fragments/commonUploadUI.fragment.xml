@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" displayBlock="true" xmlns="sap.m" class="sapUiSizeCompact" xmlns:ui="sap.ui.table" xmlns:u="sap.ui.unified">
+    <FlexBox  justifyContent="Center" alignContent="Center">
+        <u:FileUploader id="idFileUploader" change="onUploadChange" name="myFileUpload"
+         tooltip="Choose a template-based file to upload"
+         placeholder="Choose a template-based file to upload" 
+         uploadComplete="handleUploadComplete" 
+         uploadStart="onBeforeUploadStarts"
+          useMultipart="false" sendXHR="true" />
+    </FlexBox>
+    <ui:Table rows="{EXCEL_RESULTS_MODEL>/}" selectionMode="None">
+        <ui:extension>
+            <OverflowToolbar>
+                <Title text="" />
+                <ToolbarSpacer />
+                <Button icon="sap-icon://excel-attachment" tooltip="clear selection" press="clearSelection" />
+            </OverflowToolbar>
+        </ui:extension>
+        <ui:columns>
+            <ui:Column>
+                <Label text="Business Object" />
+                <ui:template>
+                    <Text text="{EXCEL_RESULTS_MODEL>businessObj}" wrapping="false" />
+                </ui:template>
+            </ui:Column>
+            <ui:Column>
+                <Label text="Row number" />
+                <ui:template>
+                    <Text text="{EXCEL_RESULTS_MODEL>rowNumber}" wrapping="false" />
+                </ui:template>
+            </ui:Column>
+            <ui:Column>
+                <Label text="Message Type" />
+                <ui:template>
+                    <ObjectStatus text="{= ${EXCEL_RESULTS_MODEL>severity} === 'success' ? 'Success' : 'Error'}" state="{= ${EXCEL_RESULTS_MODEL>severity} === 'success' ? 'Success' : 'Error'}" />
+                </ui:template>
+            </ui:Column>
+            <ui:Column>
+                <Label text="Message" />
+                <ui:template>
+                    <Text text="{EXCEL_RESULTS_MODEL>message}" wrapping="false" />
+                </ui:template>
+            </ui:Column>
+        </ui:columns>
+    </ui:Table>
+</core:FragmentDefinition>
